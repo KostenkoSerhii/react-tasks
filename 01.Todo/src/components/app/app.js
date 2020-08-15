@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import AppHeader from 'components/app-header';
 import SearchPanel from 'components/search-panel';
@@ -7,28 +7,70 @@ import ItemStatusFilter from 'components/item-status-filter';
 
 import './app.sass';
 
-const App = () => {
+export default class App extends Component{
+  state = {
+    todoData: [
+      { label: 'Drink Coffee', important: false, id: 1 },
+      { label: 'Make Awesome App', important: true, id: 2 },
+      { label: 'Have a lunch', important: false, id: 3 }
+    ]
+  };
 
-  const todoData = [
-    { label: 'Drink Coffee', important: false, id: 1 },
-    { label: 'Make Awesome App', important: true, id: 2 },
-    { label: 'Have a lunch', important: false, id: 3 }
-  ];
+  deleteItem = (id) => {
+    this.setState(({ todoData }) => {
+      const idx = todoData.findIndex((el) => el.id ===id );
 
-  return (
-    <div className="todo-app">
-      <AppHeader toDo={1} done={3} />
-      <div className="top-panel d-flex">
-        <SearchPanel />
-        <ItemStatusFilter />
+      const newArray = [
+        ...todoData.slice(0, idx),
+        ...todoData.slice(idx + 1)
+      ];
+
+      return {
+        todoData: newArray
+      }
+    })
+  }
+
+  render(){
+    return (
+      <div className="todo-app">
+        <AppHeader toDo={1} done={3} />
+        <div className="top-panel d-flex">
+          <SearchPanel />
+          <ItemStatusFilter />
+        </div>
+  
+        <TodoList 
+          todos={this.state.todoData}
+          onDeleted={this.deleteItem}
+          />
       </div>
+    );
+  }
+}
 
-      <TodoList 
-        todos={todoData}
-        onDeleted={(id)=>{console.log(`del ${id}`)}}
-        />
-    </div>
-  );
-};
+// const App = () => {
 
-export default App;
+//   // const todoData = [
+//   //   { label: 'Drink Coffee', important: false, id: 1 },
+//   //   { label: 'Make Awesome App', important: true, id: 2 },
+//   //   { label: 'Have a lunch', important: false, id: 3 }
+//   // ];
+
+//   return (
+//     <div className="todo-app">
+//       <AppHeader toDo={1} done={3} />
+//       <div className="top-panel d-flex">
+//         <SearchPanel />
+//         <ItemStatusFilter />
+//       </div>
+
+//       <TodoList 
+//         todos={todoData}
+//         onDeleted={(id)=>{console.log(`del ${id}`)}}
+//         />
+//     </div>
+//   );
+// };
+
+// export default App;
