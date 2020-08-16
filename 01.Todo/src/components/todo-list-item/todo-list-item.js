@@ -10,7 +10,7 @@ const TodoListItem = ({ label, onDeleted, onToggleImportant, onToggleDone, done,
   if(important) classNames += ' important';
 
   return (
-    <span className={classNames}>
+    <span className={ classNames }>
       <span
         className="todo-list-item-label"
         onClick={ onToggleDone }
@@ -27,7 +27,7 @@ const TodoListItem = ({ label, onDeleted, onToggleImportant, onToggleDone, done,
 
       <button type="button"
               className="btn btn-outline-danger btn-sm float-right"
-              onClick={onDeleted}
+              onClick={ onDeleted }
               >
         <i className="fa fa-trash-o" />
       </button>
