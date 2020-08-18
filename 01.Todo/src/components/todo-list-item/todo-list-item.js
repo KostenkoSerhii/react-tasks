@@ -1,16 +1,19 @@
 import React from 'react';
 
+import classNames from 'classnames';
+
 import './todo-list-item.sass';
 
 const TodoListItem = ({ label, onDeleted, onToggleImportant, onToggleDone, done, important }) => {
 
-  let classNames = 'todo-list-item';
-  if(done) classNames += ' done';
-
-  if(important) classNames += ' important';
+  const classes = classNames({
+    'todo-list-item': true,
+    'done': done,
+    'important': important
+  });
 
   return (
-    <span className={ classNames }>
+    <span className={ classes }>
       <span
         className="todo-list-item-label"
         onClick={ onToggleDone }

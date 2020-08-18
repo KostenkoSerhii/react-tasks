@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 
+import classNames from 'classnames';
+
+import { params } from 'consts';
+
 import './item-status-filter.sass';
 
 export default class ItemStatusFilter extends Component{
   buttons = [
-    {name: 'all', label: 'all'},
-    {name: 'active', label: 'Active'},
-    {name: 'done', label: 'Done'}
+    {name: params.all, label: 'all'},
+    {name: params.active, label: 'Active'},
+    {name: params.done, label: 'Done'}
   ]
   render(){
     const { filter, onFilterChange } = this.props;
 
     const buttons = this.buttons.map(({ name, label }) => {
       const isActive = filter === name;
-      const clazz = isActive ? 'btn-info' : 'btn-outline-secondary'
+
+      const classes = classNames({
+        'btn-info': isActive,
+        'btn-outline-secondary': !isActive
+      });
+
       return (
         <button type="button"
-          className={`btn ${clazz}`}
+          className={`btn ${classes}`}
           key={name}
           onClick={() => {onFilterChange(name)}}
           >{label}</button>

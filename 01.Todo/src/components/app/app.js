@@ -6,6 +6,8 @@ import TodoList from 'components/todo-list';
 import ItemStatusFilter from 'components/item-status-filter';
 import ItemAddForm from 'components/item-add-form';
 
+import { params } from 'consts';
+
 import './app.sass';
 
 export default class App extends Component{
@@ -19,21 +21,21 @@ export default class App extends Component{
       this.createTodoItem('Have a lunch')
     ],
     searchText: '',
-    filter: 'all'
+    filter: params.all
   };
 
   createTodoItem(label){
     return {
       label,
-      important: false,
-      done: false,
+      [params.important]: false,
+      [params.done]: false,
       id: this.maxId++
     }
   };
 
-  deleteItem = (id) => {
+  deleteItem = id => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id ===id );
+      const idx = todoData.findIndex(el => el.id ===id );
 
       const newArray = [
         ...todoData.slice(0, idx),
@@ -57,7 +59,7 @@ export default class App extends Component{
   };
 
   toggleProperty(arr, id, propName){
-    const idx = arr.findIndex((el) => el.id ===id );
+    const idx = arr.findIndex(el => el.id ===id );
     const oldItem = arr[idx];
     const newItem = {...oldItem, [propName]: !oldItem[propName]}
 
@@ -68,23 +70,23 @@ export default class App extends Component{
     ];
   };
 
-  onToggleDone = (id) => {
+  onToggleDone = id => {
     this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'done')
+        todoData: this.toggleProperty(todoData, id, params.done)
       }
     })
   };
 
-  onToggleImportant = (id) => {
+  onToggleImportant = id => {
     this.setState(({ todoData }) => {
       return {
-        todoData: this.toggleProperty(todoData, id, 'important')
+        todoData: this.toggleProperty(todoData, id, params.important)
       }
     })
   };
 
-  onSearchChange = (text) => {
+  onSearchChange = text => {
     this.setState(({ searchText }) => {
       return {
         searchText: text
@@ -92,7 +94,7 @@ export default class App extends Component{
     })
   }
 
-  onFilterChange = (activeFilter) => {
+  onFilterChange = activeFilter => {
     this.setState(( filter ) => {
       return {
         filter: activeFilter
@@ -103,18 +105,18 @@ export default class App extends Component{
   search(items, text){
     if(text.length === 0) return items;
     
-    return items.filter((item) => {
+    return items.filter(item => {
       return item.label.toLowerCase().indexOf(text.toLowerCase()) > -1;
     })
   }
   filter(items, filter){
     switch(filter){
-      case 'all':
+      case params.all:
         return items;
-      case 'active':
-        return items.filter((item)=> !item.done);
-      case 'done':
-        return items.filter((item)=>  item.done);
+      case params.active:
+        return items.filter(item => !item.done);
+      case params.done:
+        return items.filter(item =>  item.done);
       default: 
         return items;
     }
@@ -123,7 +125,7 @@ export default class App extends Component{
   render(){
     const { todoData, searchText, filter } = this.state;
     const visibleItems = this.filter(this.search(todoData, searchText), filter);
-    const doneCount = todoData.filter((el) => el.done === true).length;
+    const doneCount = todoData.filter(el => el.done === true).length;
     const todoCount = todoData.length - doneCount;
 
     return (
