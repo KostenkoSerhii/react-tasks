@@ -1,4 +1,4 @@
-import { requestType } from './consts';
+import { requestType } from '../consts';
 
 export default class SwapiService {
   _apiBas = 'https://swapi.dev/api'; 
