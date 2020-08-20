@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Spinner from 'components/spinner';
 import ErrorIndicator from 'components/error-indicator';
 
-import swapiService from '../../services/swapi-services';
+import swapiService from 'services/swapi-services';
 
 import './random-planet.sass';
 
@@ -17,8 +17,7 @@ export default class RandomPlanet extends Component {
     error: false
   }
 
-  constructor(){
-    super();
+  componentDidMount(){
     this.updatePlanet();
     this.interval = setInterval(this.updatePlanet, 2500)
   }
