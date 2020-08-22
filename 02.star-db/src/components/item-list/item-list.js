@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 
-import SwapiService from 'services/swapi-services';
 import Spinner from 'components/spinner';
 
 import './item-list.sass';
 
 export default class ItemList extends Component {
-  swapiService = new SwapiService();
-
   state = {
-    peopleList: null,
+    itemList: null,
     error: false
   }
 
   componentDidMount(){
-    this.swapiService
-      .getAllPeople()
-      .then( peopleList => {
+    const { getData } = this.props;
+      getData()
+      .then( itemList => {
         this.setState({
-          peopleList
+          itemList
         })
       })
       .catch(this.onError)
@@ -43,13 +40,13 @@ export default class ItemList extends Component {
   }
 
   render() {
-    const { peopleList } = this.state;
+    const { itemList } = this.state;
 
-    if(!peopleList) return <Spinner/>
+    if(!itemList) return <Spinner/>
  
     return (
       <ul className="item-list list-group">
-        { this.renderItems(peopleList) }
+        { this.renderItems(itemList) }
       </ul>
     );
   }
