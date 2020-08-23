@@ -50,7 +50,11 @@ export default class App extends Component{
         itemId={5}
         getData={this.swapiService.getStarship}
         getImageUrl={this.swapiService.getStarshipImage}
-      />
+      >
+          <Record field="model" label="Model"/>
+          <Record field="length" label="Length"/>
+          <Record field="costInCredits" label="Cost"/>
+      </ItemDetails>
     );
 
     return (
