@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 
 import Header from 'components/header';
-import RandomPlanet from 'components/random-planet';
-import ErrorButton from 'components/error-button';
 import ErrorIndicator from 'components/error-indicator';
-import PeoplePage from 'components/people-page';
-import PersonDetails from 'components/person-details';
-import ItemList from 'components/item-list';
+import Row from 'components/row';
+import ErrorBoundry from 'components/error-boundry';
+import ItemDetails, { Record } from 'components/item-details';
 
 import SwapiService from 'services/swapi-services';
 
@@ -36,22 +34,39 @@ export default class App extends Component{
     const { showRandomPlanet, hasError } = this.state;
 
     if(hasError) return <ErrorIndicator/>
+    const personDetails = (
+      <ItemDetails 
+        itemId={11} 
+        getData={this.swapiService.getPerson}
+        getImageUrl={this.swapiService.getPersonImage}
+        >
+          <Record field="gender" label="Gender"/>
+          <Record field="eyeColor" label="Eye Color"/>
+        </ItemDetails>
+    );
+
+    const starhipDetails = (
+      <ItemDetails
+        itemId={5}
+        getData={this.swapiService.getStarship}
+        getImageUrl={this.swapiService.getStarshipImage}
+      />
+    );
 
     return (
-      <div>
-        <Header />
-        {showRandomPlanet ? <RandomPlanet /> : null}
-  
-          <div className="btns-wrap">
-            <button
-              className="toggle-planet btn btn-warning btn-lg"
-              onClick={this.toggleRandomPlanet}>
-              Toggle Random Planet
-            </button>
-            <ErrorButton/>
-          </div>
-          <PeoplePage/>
-      </div>
+
+      
+        <div className="app">
+          <Header />
+            <ErrorBoundry>
+              <Row
+                left={personDetails}
+                right={starhipDetails}
+              />
+            </ErrorBoundry>
+        </div>
+    
+
     );
   }
 }
