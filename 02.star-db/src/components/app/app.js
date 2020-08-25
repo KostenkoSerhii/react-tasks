@@ -9,6 +9,7 @@ import ItemDetails, { Record } from 'components/item-details';
 import SwapiService from 'services/swapi-services';
 
 import './app.sass';
+import PeoplePage from 'components/people-page';
 
 export default class App extends Component{
   
@@ -63,6 +64,7 @@ export default class App extends Component{
         <div className="app">
           <Header />
             <ErrorBoundry>
+              <PeoplePage/>
               <Row
                 left={personDetails}
                 right={starhipDetails}
