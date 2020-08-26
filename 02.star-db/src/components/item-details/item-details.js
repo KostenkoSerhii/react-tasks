@@ -29,7 +29,6 @@ export default class ItemDetails extends Component {
 
   updateItem(){
     const { itemId, getData, getImageUrl } = this.props;
-    console.log(itemId, getImageUrl)
     if(!itemId) return;
     
     getData(itemId)
@@ -61,7 +60,7 @@ export default class ItemDetails extends Component {
 
   render() {
     const { item, image } = this.state;
-    console.log(image)
+
     if(!item){
       return <span>Select item from list </span>
     };
@@ -70,7 +69,8 @@ export default class ItemDetails extends Component {
       return <Spinner/>
     };
 
-    const { item: {id, name, gender, birthYear, eyeColor }} = this.state;
+    const { item: {name}} = this.state;
+
     return (
       <div className="item-details card">
 
