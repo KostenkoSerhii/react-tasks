@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import Spinner from 'components/spinner';
 import ErrorIndicator from 'components/error-indicator';
 
-import { withSwapiService } from 'components/hoc-helpers';
-
+import swapiService from 'services/swapi-services';
 
 import './random-planet.sass';
-class RandomPlanet extends Component {
+
+export default class RandomPlanet extends Component {
   
-  swapiService = this.props.swapiService;
+  swapiService = new swapiService();
 
   state = {
     planet: {},
@@ -65,8 +65,6 @@ class RandomPlanet extends Component {
     );
   }
 }
-
-export default withSwapiService(RandomPlanet);
 
 const PlanetView = ({planet}) => {
   const { id, name, population, rotatioPeriod, diameter } = planet;

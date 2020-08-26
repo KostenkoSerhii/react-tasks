@@ -45,7 +45,6 @@ export default class App extends Component{
         <SwapiServiceProvider value={this.swapiService}> 
           <div className="app">
             <Header />
-            <RandomPlanet/>
             <PeoplePage/>
             <PersonDetails itemId={3}/>
             <PlanetDetails itemId={4}/>

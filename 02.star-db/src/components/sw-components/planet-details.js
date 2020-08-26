@@ -4,7 +4,7 @@ import ItemDetails, { Record } from 'components/item-details';
 
 import { withSwapiService } from 'components/hoc-helpers';
 
-const PersonDetails = ({itemId, swapiService}) => {
+const PlanetDetails = ({itemId, swapiService}) => {
   const { getPlanet, getPlanetImage } = swapiService;
   return(
     <ItemDetails
@@ -19,4 +19,4 @@ const PersonDetails = ({itemId, swapiService}) => {
   )
 }
 
-export default  withSwapiService(PersonDetails)
+export default  withSwapiService(PlanetDetails)
