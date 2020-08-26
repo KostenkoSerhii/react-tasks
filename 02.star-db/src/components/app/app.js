@@ -9,6 +9,7 @@ import ItemDetails, { Record } from 'components/item-details';
 import SwapiService from 'services/swapi-services';
 
 import './app.sass';
+import { PersonList, PlanetList, StarshipList, PersonDetails, PlanetDetails, StarshipDetails } from 'components/sw-components';
 import PeoplePage from 'components/people-page';
 
 export default class App extends Component{
@@ -35,44 +36,31 @@ export default class App extends Component{
     const { showRandomPlanet, hasError } = this.state;
 
     if(hasError) return <ErrorIndicator/>
-    const personDetails = (
-      <ItemDetails 
-        itemId={11} 
-        getData={this.swapiService.getPerson}
-        getImageUrl={this.swapiService.getPersonImage}
-        >
-          <Record field="gender" label="Gender"/>
-          <Record field="eyeColor" label="Eye Color"/>
-        </ItemDetails>
-    );
 
-    const starhipDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={this.swapiService.getStarship}
-        getImageUrl={this.swapiService.getStarshipImage}
-      >
-          <Record field="model" label="Model"/>
-          <Record field="length" label="Length"/>
-          <Record field="costInCredits" label="Cost"/>
-      </ItemDetails>
-    );
 
-    return (
-
-      
+    return (      
         <div className="app">
           <Header />
             <ErrorBoundry>
-              <PeoplePage/>
+          <PeoplePage/>
+          <PersonDetails itemId={3}/>
+          <PlanetDetails itemId={4}/>
+          <StarshipDetails itemId={5}/>
+          <PersonList >
+            { i => `${i.name} (${i.birthYear})`}
+          </PersonList>
+          <PlanetList >
+            { i => `${i.name} `}
+          </PlanetList>
+          <StarshipList >
+            { i => `${i.name}`}
+          </StarshipList>
               <Row
-                left={personDetails}
-                right={starhipDetails}
+                left={<PersonDetails itemId={3}/>}
+                right={<StarshipDetails itemId={5}/>}
               />
             </ErrorBoundry>
         </div>
-    
-
     );
   }
 }
