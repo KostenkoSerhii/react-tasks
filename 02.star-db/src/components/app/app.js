@@ -6,6 +6,7 @@ import Row from 'components/row';
 import ErrorBoundry from 'components/error-boundry';
 import { PersonList, PlanetList, StarshipList, PersonDetails, PlanetDetails, StarshipDetails } from 'components/sw-components';
 import PeoplePage from 'components/people-page';
+import RandomPlanet from 'components/random-planet';
 
 import { SwapiServiceProvider } from 'components/swapi-service-context';
 
@@ -44,6 +45,7 @@ export default class App extends Component{
         <SwapiServiceProvider value={this.swapiService}> 
           <div className="app">
             <Header />
+            <RandomPlanet/>
             <PeoplePage/>
             <PersonDetails itemId={3}/>
             <PlanetDetails itemId={4}/>
@@ -51,10 +53,10 @@ export default class App extends Component{
             <PersonList />
             <PlanetList />
             <StarshipList />
-                <Row
-                  left={<PersonDetails itemId={3}/>}
-                  right={<StarshipDetails itemId={5}/>}
-                />
+            <Row
+              left={<PersonDetails itemId={3}/>}
+              right={<StarshipDetails itemId={5}/>}
+            />
           </div>
         </SwapiServiceProvider>
       </ErrorBoundry>
