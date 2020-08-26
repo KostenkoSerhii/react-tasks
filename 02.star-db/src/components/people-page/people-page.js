@@ -23,9 +23,7 @@ export default class PeoplePage extends Component {
     const { selectedPerson } = this.state;
 
     const items = (
-      <PersonList onItemSelected={this.onPersonSelected}>
-        { i => `${i.name} (${i.birthYear})`}
-      </PersonList>
+      <PersonList onItemSelected={this.onPersonSelected}/>
     );
 
     const personDetails = (

@@ -12,7 +12,8 @@ const {
   getPersonImage,
   getPlanetImage,
   getStarshipImage
-} = swapi
+} = swapi;
+
 const PersonDetails = ({itemId}) => {
   return(
     <ItemDefails 

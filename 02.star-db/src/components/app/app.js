@@ -46,15 +46,9 @@ export default class App extends Component{
           <PersonDetails itemId={3}/>
           <PlanetDetails itemId={4}/>
           <StarshipDetails itemId={5}/>
-          <PersonList >
-            { i => `${i.name} (${i.birthYear})`}
-          </PersonList>
-          <PlanetList >
-            { i => `${i.name} `}
-          </PlanetList>
-          <StarshipList >
-            { i => `${i.name}`}
-          </StarshipList>
+          <PersonList />
+          <PlanetList />
+          <StarshipList />
               <Row
                 left={<PersonDetails itemId={3}/>}
                 right={<StarshipDetails itemId={5}/>}
