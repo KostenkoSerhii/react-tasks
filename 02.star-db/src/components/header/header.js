@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './header.sass';
 
@@ -29,5 +30,9 @@ const Header = ({onServiceChange}) => {
     </div>
   );
 };
+
+Header.propTypes = {
+  onServiceChange: PropTypes.func.isRequired
+}
 
 export default Header;

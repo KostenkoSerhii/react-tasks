@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Spinner from 'components/spinner';
 
@@ -13,6 +14,12 @@ const Record = ({ item, field, label }) => {
       <span>{item[field]}</span>
     </li>
   )
+}
+
+Record.porpTypes = {
+  item: PropTypes.object.isRequired,
+  field: PropTypes.string,
+  label: PropTypes.string
 }
 
 export {
