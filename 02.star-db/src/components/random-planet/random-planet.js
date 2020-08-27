@@ -8,6 +8,9 @@ import swapiService from 'services/swapi-services';
 import './random-planet.sass';
 
 export default class RandomPlanet extends Component {
+ static defaultProps = {
+    updateInterval: 10000
+  }
   
   swapiService = new swapiService();
 
@@ -18,8 +21,9 @@ export default class RandomPlanet extends Component {
   }
 
   componentDidMount(){
+    const { updateInterval } = this.props;
     this.updatePlanet();
-    this.interval = setInterval(this.updatePlanet, 2500)
+    this.interval = setInterval(this.updatePlanet, updateInterval)
   }
 
   onPlanetLoaded = (planet) => {
@@ -72,7 +76,7 @@ const PlanetView = ({planet}) => {
   return(
     <React.Fragment>
          <img className="planet-image"
-            src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} />
+            src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt="alt"/>
         <div>
           <h4>{ name }</h4>
           <ul className="list-group list-group-flush">
