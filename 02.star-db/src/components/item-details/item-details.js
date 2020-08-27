@@ -56,7 +56,6 @@ export default class ItemDetails extends Component {
       })
       console.log(`before`, this.state.loading) // не совсем понятно почему когда в первый раз кликаю на персонажа то не появляется спиннер
       this.updateItem();
-     
     }
   }
 
@@ -77,7 +76,7 @@ export default class ItemDetails extends Component {
       <div className="item-details card">
 
         <img className="item-image"
-          src={image} />
+          src={image} alt="alt"/>
 
         <div className="card-body">
           <h4>{name}</h4>
