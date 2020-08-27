@@ -9,15 +9,26 @@ const withData = (View) => {
       data: null,
       error: false
     }
+
+    componentDidUpdate(prevProps, prevState) {
+      if(this.props.getData !== prevProps.getData){
+        this.update()
+      }
+    }
+    
   
     componentDidMount(){
-        this.props.getData()
-        .then( data => {
-          this.setState({
-            data
-          })
+      this.update()
+    }
+
+    update(){
+      this.props.getData()
+      .then( data => {
+        this.setState({
+          data
         })
-        .catch(this.onError)
+      })
+      .catch(this.onError)
     }
   
     onError = err => {
