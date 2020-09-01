@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import ReactDOM from 'react-dom';
 
-const App = () => 'hi';
+const MyContext = React.createContext();
+
+const App = () => {
+  return(
+    <MyContext.Provider value="hello word">
+    <Child/>
+    </MyContext.Provider>
+  )
+};
+
+const Child = () => {
+  const value = useContext(MyContext)
+return <p>{value}</p>
+}
+
+
 ReactDOM.render(<App/>,
   document.getElementById('root')
 );
