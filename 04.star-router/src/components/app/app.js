@@ -4,7 +4,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from 'components/header';
 import ErrorIndicator from 'components/error-indicator';
 import ErrorBoundry from 'components/error-boundry';
-import { PeoplePage, PlanetsPage, StarshipsPage } from 'components/pages';
+import { 
+  PeoplePage, 
+  PlanetsPage, 
+  StarshipsPage,   
+  LoginPage,
+  SecretPage } from 'components/pages';
 import RandomPlanet from 'components/random-planet';
 
 import SwapiService from 'services/swapi-services';
@@ -19,7 +24,14 @@ export default class App extends Component{
   
   state = {
     hasError: false,
-    swapiService: new SwapiService()
+    swapiService: new SwapiService(),
+    isLoggedIn: false,
+  }
+
+  onLogin = () => {
+    this.setState({
+      isLoggedIn: true
+    })
   }
 
   componentDidCatch() {
@@ -37,7 +49,7 @@ export default class App extends Component{
   }
 
   render(){
-    const { hasError } = this.state;
+    const { hasError, isLoggedIn } = this.state;
 
     if(hasError) return <ErrorIndicator/>
 
@@ -50,13 +62,28 @@ export default class App extends Component{
               <RandomPlanet/>
 
               <Route path="/" exact render={() => <h2>Welcome to StarDB</h2>  }/>
-              <Route path="/people" component={PeoplePage}/>
+              <Route path="/people/:id?" component={PeoplePage}/>
               <Route path="/planets" component={PlanetsPage}/>
               <Route path="/starships" exact component={StarshipsPage}/>
               <Route path="/starships/:id" 
               render={({match}) => {
-                console.log(match)
                 return <StarshipDetails itemId={match.params.id} />
+              }}/>
+
+              <Route 
+                path="/login" 
+                render={() => {
+                 return(
+                   <LoginPage 
+                    isLoggedIn={isLoggedIn}
+                    onLogin={this.onLogin}
+                    />
+                 ) 
+              }}/>
+              <Route 
+                path="/secret" 
+                render={() => {
+                  return <SecretPage isLoggedIn={isLoggedIn} />
               }}/>
 
             </div>
