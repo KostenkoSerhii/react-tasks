@@ -36,18 +36,16 @@ const getPlanet = (id) => {
 }
 
 const useRequest = (request) => {
-  const [data, setData] = useState({
-    data: null,
-    loading: true,
-    error: false
-  });
+const initialState = useMemo(() => ({
+  data: null,
+  loading: true,
+  error: false
+}), [])
+
+  const [data, setData] = useState(initialState);
   
   useEffect(() => {
-      setData({
-        data: null,
-        loading: true,
-        error: false
-      })
+      setData(initialState)
       let cancelled = false;
       request()
       .then(data => !cancelled && setData({
@@ -61,7 +59,7 @@ const useRequest = (request) => {
         error
       }))
       return () => cancelled = true
-    }, [ request ])
+    }, [ request, initialState ])
   return data;
 }
 

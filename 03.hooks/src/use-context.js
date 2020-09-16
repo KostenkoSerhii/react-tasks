@@ -13,9 +13,8 @@ const App = () => {
 
 const Child = () => {
   const value = useContext(MyContext)
-return <p>{value}</p>
+  return <p>{value}</p>
 }
-
 
 ReactDOM.render(<App/>,
   document.getElementById('root')
