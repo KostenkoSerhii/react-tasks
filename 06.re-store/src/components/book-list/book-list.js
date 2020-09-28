@@ -6,7 +6,7 @@ import { BookListItem } from 'components/book-list-item';
 import Spinner from 'components/spinner';
 import ErrorIndicator from 'components/error-indicator';
 
-import { fetchBooks } from 'actions';
+import { fetchBooks, bookAddedToCart } from 'actions';
 
 import { compose } from 'utils';
 
@@ -18,7 +18,7 @@ const BookListContainer = (props) => {
     props.fetchBooks()
   }, [])
   
-  const {books, loading, error} = props;
+  const {books, loading, error, onAddedToCart} = props;
 
 
   if(loading){
@@ -28,14 +28,14 @@ const BookListContainer = (props) => {
     return <ErrorIndicator/>
   }
 
-  return <BookList books={books}/>;
+  return <BookList books={books} onAddedToCart={onAddedToCart}/>;
 };
 
-const BookList = ({books}) => {
+const BookList = ({books, onAddedToCart}) => {
   const listItems = books.map((book) => { 
     return(
       <li key={book.id}>
-        <BookListItem book={book} />
+        <BookListItem book={book} onAddedToCart={() => onAddedToCart(book.id)} />
       </li>
     )
   })
@@ -56,7 +56,8 @@ const mapStateToProps = ({books, loading, error}) => {
 
 const mapDispatchToProps = (dispatch, { bookstoreService }) => {
   return {
-    fetchBooks: fetchBooks(bookstoreService, dispatch)
+    fetchBooks: fetchBooks(bookstoreService, dispatch),
+    onAddedToCart: (id) => dispatch(bookAddedToCart(id)) 
   }
 }
 
