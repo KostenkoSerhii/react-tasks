@@ -29,7 +29,7 @@ const BookList = (props) => {
     )
   })
   return(
-    <ul>
+    <ul className="book-list">
       {listItems}
     </ul>
   )
