@@ -4,7 +4,12 @@ const booksLoaded = (newsBooks) => {
     payload: newsBooks
   }
 }; 
+const booksRequested = () => {
+  return {
+    type: 'BOOKS_REQUESTED'
+  }
+}; 
 
 export {
-  booksLoaded
+  booksLoaded, booksRequested
 }

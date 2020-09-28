@@ -4,8 +4,9 @@ import { bindActionCreators } from 'redux';
 
 import withBookstoreService from 'components/hoc';
 import { BookListItem } from 'components/book-list-item';
+import Spinner from 'components/spinner';
 
-import { booksLoaded } from 'actions';
+import { booksLoaded, booksRequested } from 'actions';
 
 import { compose } from 'utils';
 
@@ -14,20 +15,26 @@ import './book-list.sass';
 const BookList = (props) => {
   
   useEffect(() => {
-    const bookstoreService = props.bookstoreService;
-    const data = bookstoreService.getBooks();
-    console.log(data)
-
-    props.booksLoaded(data)
+    console.log(1)
+    const { bookstoreService, booksLoaded, booksRequested } = props;
+    booksRequested()
+    bookstoreService.getBooks()
+      .then((data) => booksLoaded(data))
   }, [])
   
-  const listItems = props.books.map((book) => {
+  const {books, loading} = props;
+  const listItems = books.map((book) => {
     return(
       <li key={book.id}>
         <BookListItem book={book} />
       </li>
     )
   })
+
+  if(loading){
+    return <Spinner/>
+  }
+
   return(
     <ul className="book-list">
       {listItems}
@@ -35,15 +42,17 @@ const BookList = (props) => {
   )
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({books, loading}) => {
   return {
-    books: state.books
+    books,
+    loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    booksLoaded
+    booksLoaded,
+    booksRequested
   }, dispatch)
   // return {
   //   booksLoaded: (newBooks) => {
