@@ -1,67 +1,66 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import withBookstoreService from 'components/hoc';
 import { BookListItem } from 'components/book-list-item';
 import Spinner from 'components/spinner';
+import ErrorIndicator from 'components/error-indicator';
 
-import { booksLoaded, booksRequested } from 'actions';
+import { fetchBooks } from 'actions';
 
 import { compose } from 'utils';
 
 import './book-list.sass';
 
-const BookList = (props) => {
+const BookListContainer = (props) => {
   
   useEffect(() => {
-    console.log(1)
-    const { bookstoreService, booksLoaded, booksRequested } = props;
-    booksRequested()
-    bookstoreService.getBooks()
-      .then((data) => booksLoaded(data))
+    props.fetchBooks()
   }, [])
   
-  const {books, loading} = props;
-  const listItems = books.map((book) => {
+  const {books, loading, error} = props;
+
+
+  if(loading){
+    return <Spinner/>
+  }
+  if(error){
+    return <ErrorIndicator/>
+  }
+
+  return <BookList books={books}/>;
+};
+
+const BookList = ({books}) => {
+  const listItems = books.map((book) => { 
     return(
       <li key={book.id}>
         <BookListItem book={book} />
       </li>
     )
   })
-
-  if(loading){
-    return <Spinner/>
-  }
-
-  return(
+  return (
     <ul className="book-list">
-      {listItems}
+    { listItems}
     </ul>
   )
-};
+}
 
-const mapStateToProps = ({books, loading}) => {
+const mapStateToProps = ({books, loading, error}) => {
   return {
     books,
-    loading
+    loading,
+    error
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    booksLoaded,
-    booksRequested
-  }, dispatch)
-  // return {
-  //   booksLoaded: (newBooks) => {
-  //     dispatch(booksLoaded(newBooks))
-  //   }
- 
+const mapDispatchToProps = (dispatch, { bookstoreService }) => {
+  return {
+    fetchBooks: fetchBooks(bookstoreService, dispatch)
+  }
 }
 
 export default compose(
   withBookstoreService(),
   connect(mapStateToProps, mapDispatchToProps)
-  )(BookList);
+  )(BookListContainer);
