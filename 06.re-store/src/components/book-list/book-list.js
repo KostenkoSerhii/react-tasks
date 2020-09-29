@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import withBookstoreService from 'components/hoc';
 import { BookListItem } from 'components/book-list-item';
@@ -54,11 +55,19 @@ const mapStateToProps = ({bookList: { books, loading, error }}) => {
   }
 }
 
+// const mapDispatchToProps = (dispatch, { bookstoreService }) => {
+//   return {
+//     // fetchBooks: fetchBooks(bookstoreService, dispatch),
+//     fetchBooks: () => dispatch(fetchBooks(bookstoreService)()),
+//     onAddedToCart: (id) => dispatch(bookAddedToCart(id)) 
+//   }
+// }
 const mapDispatchToProps = (dispatch, { bookstoreService }) => {
-  return {
-    fetchBooks: fetchBooks(bookstoreService, dispatch),
-    onAddedToCart: (id) => dispatch(bookAddedToCart(id)) 
-  }
+  return bindActionCreators({
+    // fetchBooks: fetchBooks(bookstoreService, dispatch),
+    fetchBooks: fetchBooks(bookstoreService),
+    onAddedToCart: bookAddedToCart
+  }, dispatch)
 }
 
 export default compose(
