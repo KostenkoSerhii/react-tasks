@@ -9,7 +9,7 @@ import './app.sass';
 const App = () => {
   return (
     <main className="container">
-      <ShopHeader numItems={5} total={200} />
+      <ShopHeader/>
       <Switch>
         <Route path='/' exact component={HomePage}/>
         <Route path='/cart' component={CartPage}/>

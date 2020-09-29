@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { bookAddedToCart, bookRemoveFromCart, allBooksRemoveFromCart } from 'actions';
+
 import './shopping-cart-table.sass';
 
 const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => {
@@ -54,6 +57,13 @@ const ShoppingCartTable = ({items, total, onIncrease, onDecrease, onDelete}) => 
   );
 };
 
+ShoppingCartTable.propTypes = {
+  items: PropTypes.array.isRequired,
+  total: PropTypes.number.isRequired,
+  onIncrease: PropTypes.func.isRequired,
+  onDecrease: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+}
 
 const mapStateToProps = ({shopingCart: { cartItems, orderTotal }}) => {
   return {

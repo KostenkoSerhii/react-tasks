@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './book-list-item.sass';
 
@@ -21,6 +22,11 @@ const BookListItem = ({ book, onAddedToCart }) => {
 
     </div>
   )
+};
+
+BookListItem.propTypes = {
+  book: PropTypes.object.isRequired,
+  onAddedToCart: PropTypes.func.isRequired
 }
 
 export default BookListItem;

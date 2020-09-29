@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
+import PropTypes from 'prop-types';
+
 import './shop-header.sass';
 
-const ShopHeader = ({ numItems, total }) => {
+const ShopHeader = ({ count, total }) => {
   return (
     <header className="shop-header row">
 
@@ -13,11 +17,29 @@ const ShopHeader = ({ numItems, total }) => {
       <Link to="/cart">
         <div className="shopping-cart">
           <i className="cart-icon fa fa-shopping-cart" />
-          {numItems} items (${total})
+          {count} items (${total})
         </div>
       </Link>
     </header>
   );
 };
 
-export default ShopHeader;
+ShopHeader.defaultProps = {
+  count: 0,
+  total: 0
+} 
+
+ShopHeader.propTypes = {
+  count: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+}
+
+
+const mapStateToProps = ({shopingCart: { orderCount, orderTotal }}) => {
+  return { 
+    count: orderCount,
+    total: orderTotal
+   }
+}
+
+export default connect(mapStateToProps)(ShopHeader);

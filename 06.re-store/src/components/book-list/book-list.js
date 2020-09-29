@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import PropTypes from 'prop-types';
+
 import withBookstoreService from 'components/hoc';
 import { BookListItem } from 'components/book-list-item';
 import Spinner from 'components/spinner';
@@ -54,6 +56,18 @@ const mapStateToProps = ({bookList: { books, loading, error }}) => {
     error
   }
 }
+
+BookListContainer.propTypes = ({
+  fetchBooks: PropTypes.func.isRequired,
+  onAddedToCart: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.any
+})
+BookList.propTypes = ({
+  onAddedToCart: PropTypes.func.isRequired,
+  books: PropTypes.array.isRequired
+})
 
 // const mapDispatchToProps = (dispatch, { bookstoreService }) => {
 //   return {
